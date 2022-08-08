@@ -7,7 +7,7 @@ using std::string;
 
 #define TOTAL_GROCERY_ITEMS 5
 
-struct GroceryItem 
+struct GroceryItem
 {
     string itemName;
     bool available;
@@ -15,7 +15,7 @@ struct GroceryItem
 
 std::vector<GroceryItem> groceryItems(TOTAL_GROCERY_ITEMS);
 
-class GroceryStore 
+class GroceryStore
 {
 public:
     GroceryStore(std::vector<GroceryItem> grocery)
@@ -25,9 +25,10 @@ public:
 
     void refillInventory(string itemName)
     {
-        auto refilled = find_if(begin(groceryItems), end(groceryItems), [&](GroceryItem item){return item.itemName==itemName;});
+        auto refilled = find_if(begin(groceryItems), end(groceryItems), [itemName](GroceryItem item)
+                                { return item.itemName == itemName; });
 
-        if(refilled != end(groceryItems))
+        if (refilled != end(groceryItems))
         {
             refilled->available = true;
             cout << "Item " << itemName << " has been refilled in the Grocery Store\n";
@@ -35,20 +36,21 @@ public:
     }
 };
 
-class Customer 
+class Customer
 {
 public:
     bool purchaseItem(string itemName)
     {
-        auto purchased = find_if(begin(groceryItems), end(groceryItems), [&](GroceryItem item){return item.itemName == itemName && item.available;});
+        auto purchased = find_if(begin(groceryItems), end(groceryItems), [itemName](GroceryItem item)
+                                 { return item.itemName == itemName && item.available; });
 
-        if(purchased != end(groceryItems))
+        if (purchased != end(groceryItems))
         {
             cout << "Item " << itemName << " is available\n";
             return true;
         }
 
-        cout << "The item " << itemName << " is not available in the Grocery Store\n"; 
+        cout << "The item " << itemName << " is not available in the Grocery Store\n";
         return false;
     }
 };
@@ -56,10 +58,10 @@ public:
 int main(void) 
 { 
     std::vector<GroceryItem> itemList = {{"Flour", true}, {"Rice", true}, {"Brown Bread", false}, \
-                              {"Blueberry Syrup", false}, {"Detergent", true}};   
+                              {"Blueberry Syrup", false}, {"Detergent", true}};
     GroceryStore objGs(itemList);
     Customer objCust;
-    
+
     objCust.purchaseItem("Detergent");
     objCust.purchaseItem("Flour");
     objCust.purchaseItem("Rice");
@@ -77,6 +79,4 @@ int main(void)
     cout << "\n";
     objCust.purchaseItem("Brown Bread");
     objCust.purchaseItem("Blueberry Syrup");
-
-    return 0;
 }
