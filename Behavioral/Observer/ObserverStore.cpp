@@ -79,7 +79,7 @@ public:
 
     void refillInventory(string itemName)
     {
-        auto refilled = find_if(begin(groceryItems), end(groceryItems), [&](GroceryItem item)
+        auto refilled = find_if(begin(groceryItems), end(groceryItems), [itemName](GroceryItem item)
                                 { return item.itemName == itemName; });
 
         if (refilled != end(groceryItems))
@@ -122,7 +122,7 @@ public:
     {
         cout << "Customer wants to purchase item " << itemName << " - ";
 
-        auto purchased = find_if(begin(groceryItems), end(groceryItems), [&](GroceryItem item)
+        auto purchased = find_if(begin(groceryItems), end(groceryItems), [itemName](GroceryItem item)
                                  { return item.itemName == itemName && item.available; });
 
         if (purchased != end(groceryItems))
