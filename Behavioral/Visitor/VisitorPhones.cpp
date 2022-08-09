@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+using std::cout;
 
 /**
  * The Visitor Interface declares a set of visiting methods that correspond to
