@@ -19,7 +19,14 @@ protected:
     ContextMobile *context;
 
 public:
-    //Why virtual?
+    /**
+     * Why virtual?
+     * Making base class destructor virtual guarantees that the object of derived class is
+     * destructed properly, i.e., both base class and derived class destructors are called.
+     * 
+     * As a guideline, any time you have a virtual function in a class, you should immediately add 
+     * a virtual destructor (even if it does nothing). This way, you ensure against any surprises later. 
+     */
     virtual ~State() {}
 
     void setContext(ContextMobile *context) 
