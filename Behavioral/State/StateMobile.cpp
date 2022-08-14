@@ -13,7 +13,7 @@ class ContextMobile;
  * This backreference can be used by States to transition the ContextMobile
  * to another State.
  */
-class State
+class States
 {
 protected:
     ContextMobile *context;
@@ -27,7 +27,7 @@ public:
      * As a guideline, any time you have a virtual function in a class, you should immediately add 
      * a virtual destructor (even if it does nothing). This way, you ensure against any surprises later. 
      */
-    virtual ~State() {}
+    virtual ~States() {}
 
     void setContext(ContextMobile *context) 
     {
@@ -49,10 +49,10 @@ class ContextMobile
      * state is a reference to the current state of the ContextMobile.
      */
 private:
-    State *state;
+    States *state;
 
 public:
-    ContextMobile(State *state) : state(nullptr)
+    ContextMobile(States *state) : state(nullptr)
     {
         this->TransitionTo(state);
     }
@@ -65,7 +65,7 @@ public:
     /**
      * The ContextMobile allows changing the State object at runtime.
      */
-    void TransitionTo(State *stateTrans)
+    void TransitionTo(States *stateTrans)
     {
         cout << "Context: Transition to " << typeid(*stateTrans).name() << ".\n";
 
@@ -95,7 +95,7 @@ public:
  * ContextMobile.
  */
 
-class ConcreteStateSilent : public State
+class ConcreteStateSilent : public States
 {
 public:
     void playRingTone()
@@ -106,7 +106,7 @@ public:
     void toggleSilentMode(); 
 };
 
-class ConcreteStateSwitchedOn : public State
+class ConcreteStateSwitchedOn : public States
 {
 public:
     void playRingTone()
