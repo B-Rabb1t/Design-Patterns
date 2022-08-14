@@ -5,7 +5,7 @@
 using std::cout;
 using std::string;
 
-#define TOTAL_GROCERY_ITEMS 5
+const int TOTAL_GROCERY_ITEMS = 5;
 
 struct GroceryItem
 {
