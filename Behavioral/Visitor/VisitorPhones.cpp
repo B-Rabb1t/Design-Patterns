@@ -15,6 +15,7 @@ class MobileVisitor
 public:
     virtual void visitBasicPhone(const BasicPhone *element) const = 0;
     virtual void visitSmartPhone(const SmartPhone *element) const = 0;
+    virtual ~MobileVisitor() {}
 };
 
 /**
