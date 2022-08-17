@@ -63,4 +63,6 @@ int main()
         new ScrollDecorator(new TextField(25, 25))));
 
     decorated->draw();
+
+    delete decorated;
 }
