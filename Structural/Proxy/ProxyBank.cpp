@@ -6,7 +6,7 @@ class BankService
 {
 public:
     virtual bool debitMoney(uint32_t amount) = 0;
-    virtual ~BankService() {}
+    virtual ~BankService() = default;
 };
 
 // Real object - Bank
@@ -21,12 +21,12 @@ public:
         this->accountBalance = openingBalance;
     }
 
-    //The copy constructor was implemented to be
-    //able to check which constructor was used
+    // The copy constructor was implemented to be
+    // able to check which constructor was used
     Bank(const Bank &account)
     {
         this->accountBalance = account.accountBalance;
-        cout << "Prins la copiat!\n";
+        cout << "Got ya!\n";
     }
 
     bool debitMoney(uint32_t amount)
@@ -65,7 +65,7 @@ private:
     }
 
 public:
-    //Uses the copy constructor of the Bank class
+    // Uses the copy constructor of the Bank class
     DebitCard(Bank *objBank) : objRealBank(new Bank(*objBank)) {}
 
     bool debitMoney(uint32_t amount)
@@ -90,9 +90,9 @@ public:
     }
 };
 
-void clientRequest(BankService &clientReq, uint32_t depositAmount)
+void clientRequest(BankService *clientReq, uint32_t depositAmount)
 {
-    if (clientReq.debitMoney(depositAmount))
+    if (clientReq->debitMoney(depositAmount))
     {
         cout << "Debit money operation was successful\n";
     }
@@ -101,15 +101,14 @@ void clientRequest(BankService &clientReq, uint32_t depositAmount)
 int main(void)
 {
     cout << "Client: Executing the client request with a real bank object\n";
-    Bank *objBank = new Bank(5000);
-    clientRequest(*objBank, 2000);
+    Bank objBank(5000);
+    clientRequest(&objBank, 2000);
 
     cout << "\n";
 
     cout << "Client: Executing the same client request with a proxy debit card object\n";
-    DebitCard *proxyDebitCard = new DebitCard(objBank);
-    clientRequest(*proxyDebitCard, 1000);
+    DebitCard *proxyDebitCard = new DebitCard(&objBank);
+    clientRequest(proxyDebitCard, 1000);
 
-    delete objBank;
     delete proxyDebitCard;
 }
